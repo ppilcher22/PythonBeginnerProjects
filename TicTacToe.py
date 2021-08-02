@@ -31,10 +31,10 @@ coords = {
 
 user = True #True = 'X' False = 'O'
 
-def user_move(user):
+def user_move():
     move = convert_move(int(input('Select position 1-9: ')))
     if check_move(move):
-        update_board(move, user)
+        update_board(move)
               
 
 def convert_move(move):
@@ -48,7 +48,7 @@ def check_move(move):
         return True
     else: return False
 
-def update_board(move, user):
+def update_board(move):
     x = int(move[0])
     y = int(move[1])
     if user :
@@ -56,36 +56,35 @@ def update_board(move, user):
     else:
         board[x][y] = 'O'
 
-def is_win(board, user):
+def is_win(board):
 
-    if check_rows(board, user): return True
-    if check_cols(board, user): return True
-    if check_diag(board, user): return True
+    if check_rows(board): return True
+    if check_cols(board): return True
+    if check_diag(board): return True
 
-def check_rows(board, user):
+def check_rows(board):
     for row in board:
         complete_row = True
         for slot in row:
-            if slot != active_user(user):
+            if slot != 'X':
                 complete_row = False
                 break
         if complete_row: return True
     return False
 
-def check_cols(board, user):
+def check_cols(board):
     for col in range(3):
         complete_col = True
         for row in range(3):
-            if str(board[row][col]) != active_user(user):
+            if str(board[row][col]) != 'X':
                 complete_col = False
                 break
         if complete_col: return True
     return False
 
-def check_diag(board, user):
-    currentUser = active_user(user)
-    if board[0][0] == currentUser and board[1][1] == currentUser and board[2][2] == currentUser: return True
-    elif board[0][2] == currentUser and board[1][1] == currentUser and board[2][0] == currentUser: return True
+def check_diag(board):
+    if board[0][0] == 'X' and board[1][1] == 'X' and board[2][2] == 'X': return True
+    elif board[0][2] == 'X' and board[1][1] == 'X' and board[2][0] == 'X': return True
     else: return False
 
 def print_board(board):
@@ -100,13 +99,11 @@ def active_user(user):
 
 #Start of game
 while True :
-    active_user = active_user(user)
-    user_move(user)
+    user_move()
     print_board(board)
-    if is_win(board, user): 
-        print(active_user + ' has won!')
+    if is_win(board): 
+        print('X has won!')
         break
-    user = not user
     
 
     
