@@ -10,8 +10,10 @@ def passwordGen(numOfChars, bool_1, bool_2, bool_3, bool_4):
     possibleChars = ()
     if bool_1: possibleChars += lowerCaseLetters
     if bool_2: possibleChars += upperCaseLetters
-    if bool_3: possibleChars += numbers
-    if bool_4: possibleChars += specialChars
+    if bool_3: possibleChars += numbers * 3
+    if bool_4: possibleChars += specialChars * 2
+
+    print(possibleChars)
 
     while len(password) != int(numOfChars):
             password += random.choice(possibleChars)
