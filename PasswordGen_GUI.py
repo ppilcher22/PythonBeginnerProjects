@@ -1,24 +1,20 @@
 import PySimpleGUI as sg, random
 
+lowerCaseLetters = ('a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z')
+upperCaseLetters = ('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z')
+numbers = ('1','2','3','4','5','6','7','8','9','0')
+specialChars = ('!','@','$','%','#','^','&','*','(',')','?')
+
 def passwordGen(numOfChars, bool_1, bool_2, bool_3, bool_4):
-    lowerCaseLetters = ('a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z')
-    upperCaseLetters = ('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z')
-    numbers = ('1','2','3','4','5','6','7','8','9','0')
-    specialChars = ('!','@','$','%','#','^','&','*','(',')','?')
-
     password = ''
+    possibleChars = ()
+    if bool_1: possibleChars += lowerCaseLetters
+    if bool_2: possibleChars += upperCaseLetters
+    if bool_3: possibleChars += numbers
+    if bool_4: possibleChars += specialChars
 
-    #Bad solution - can technically run forever
     while len(password) != int(numOfChars):
-        rand1 = random.randint(1,4)
-        if rand1 == 1 and bool_1 == True:
-            password += random.choice(lowerCaseLetters)
-        elif rand1 == 2 and bool_2 == True:
-            password += random.choice(upperCaseLetters)
-        elif rand1 == 3 and bool_3 == True:
-            password += random.choice(numbers)
-        elif rand1 == 4 and bool_4 == True:
-            password += random.choice(specialChars)
+            password += random.choice(possibleChars)
     return password
 
 # Define the window's contents
@@ -42,7 +38,6 @@ while True:
     # See if user wants to quit or window was closed
     if event == sg.WINDOW_CLOSED or event == 'Quit':
         break
-    
     
     password = passwordGen(
                 values['reply'], 
